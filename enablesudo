@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+# Check if username is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+USERNAME="$1"
+
+echo "Updating package lists..."
+apt update
+
+echo "Installing sudo..."
+apt install sudo -y
+
+echo "Adding user $USERNAME to the sudo group..."
+usermod -aG sudo "$USERNAME"
+
+echo "Success! User $USERNAME has been added to the sudo group."
+echo "Log out and log back in for the changes to take effect."
